@@ -1,0 +1,13 @@
+.user-list {
+    list-style: none;
+    padding: 0;
+    color: white;    
+}
+
+.user-list h2 {
+    text-align: center;
+}
+
+.user-list label {
+    color: yellow
+}
