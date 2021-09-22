@@ -35,12 +35,22 @@ function UserForm(props) {
 
   function nameChangeHandler(event) {
     setEnteredName(event.target.value);
-    if (enteredName.trim().length > 0) setNameValid(true);
+    if (event.target.value !== "") {
+      setNameValid(true);
+      // console.log(NameValid);
+    }
+    // console.log(enteredName.trim().length.toString)
+    // if (enteredName.trim().length != 0) {
+    //   console.log(event.target.value)
+
+    // }
   }
 
   function ageChangeHandler(event) {
     setEnteredAge(event.target.value);
-    if (enteredAge.trim().length > 0) setAgeValid(true);
+    if (event.target.value !== "") {
+      setAgeValid(true);
+    }
   }
 
   const [enteredName, setEnteredName] = useState("");

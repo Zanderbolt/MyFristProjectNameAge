@@ -6,12 +6,12 @@ import { useState } from "react";
 function App() {
   const [userList, setUserList] = useState([
     {
-      key: 'k01',
+      id: 'g1',
       name: "Christian",
       age: '27',
     },
     {
-      key: 'k02',
+      id: 'g2',
       name: "Miguel",
       age: '28',
     },
@@ -24,7 +24,7 @@ function App() {
   }
 
   return (
-    <div>
+    <div>      
       <UserForm onAddNewUser={addNewUserHandler}/>
       <Users users={userList}/>
     </div>

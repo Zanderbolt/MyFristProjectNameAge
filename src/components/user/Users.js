@@ -3,7 +3,7 @@ import './Users.css'
 
 function Users(props) {  
   return (
-    <div className='users'>      
+    <div className='users'>         
       <UserList users={props.users} />
     </div>
   );
