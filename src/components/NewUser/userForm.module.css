@@ -43,17 +43,4 @@
     max-width: 100%;
   }
   
-  .new-user__action {
-    text-align: right;
-  }
 
-  .new-user__action button {
-    font: inherit;
-    cursor: pointer;
-    padding: 1rem 2rem;
-    border: 1px solid #778004;
-    background-color: #778004;
-    color: white;
-    border-radius: 12px;
-    margin-right: 1rem;
-  }

@@ -4,7 +4,7 @@ import './Users.css'
 function Users(props) {  
   return (
     <div className='users'>         
-      <UserList users={props.users} />
+      <UserList users={props.users} onDeleteUser={props.onDeleteUser} />
     </div>
   );
 }

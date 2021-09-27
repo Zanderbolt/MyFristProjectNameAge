@@ -1,34 +1,46 @@
 import "./UserForm.css";
 import { useState } from "react";
 import styles from "./userForm.module.css";
+import Card from "../UI/Card";
+import Button from "../UI/Button";
+import ErrorModal from "../UI/ErrorModal";
+
 function UserForm(props) {
+  const [enteredName, setEnteredName] = useState("");
+  const [enteredAge, setEnteredAge] = useState("");
+  const [NameValid, setNameValid] = useState(true);
+  const [AgeValid, setAgeValid] = useState(true);
+  const [error, setError] = useState();
+
   function onSubmitHandler(event) {
     event.preventDefault();
     // Input validation
     if (enteredName.trim().length === 0) {
+      setError({
+        title: "Invalid Title",
+        message: "Enter a valid Name (non-empty Values).",
+      });
       setNameValid(false);
     }
     if (enteredAge.trim().length === 0) {
+      setError({
+        title: "Invalid Age",
+        message: "Enter a valid Age (>0, Non-empty values).",
+      });
       setAgeValid(false);
     }
     if (!enteredName || !enteredAge) return;
-    // NameValid ? setNameValid(true) : setNameValid(false);
-    // AgeValid ? setAgeValid(true) : setAgeValid(false);
-
-    // if(enteredName.trim().length === 0 || enteredAge.trim().length === 0) {
-    //   setIsValid(false);
-    //   return;
-    // }
 
     // Create the new user Object
     const enteredUser = {
-      key: Math.random().toString(),
+      id: Math.random().toString(),
       name: enteredName,
       age: enteredAge,
     };
 
     //Add the New User
     props.onAddNewUser(enteredUser);
+    //Clean the Inputs
     setEnteredName("");
     setEnteredAge("");
   }
@@ -37,13 +49,7 @@ function UserForm(props) {
     setEnteredName(event.target.value);
     if (event.target.value !== "") {
       setNameValid(true);
-      // console.log(NameValid);
     }
-    // console.log(enteredName.trim().length.toString)
-    // if (enteredName.trim().length != 0) {
-    //   console.log(event.target.value)
-
-    // }
   }
 
   function ageChangeHandler(event) {
@@ -51,49 +57,63 @@ function UserForm(props) {
     if (event.target.value !== "") {
       setAgeValid(true);
     }
+
+    
   }
 
-  const [enteredName, setEnteredName] = useState("");
-  const [enteredAge, setEnteredAge] = useState("");
-  const [NameValid, setNameValid] = useState(true);
-  const [AgeValid, setAgeValid] = useState(true);
+  function errorHandler() {
+    setError(null);
+  }
 
   return (
-    <div className="userForm">
-      <h2> Add a New User </h2>
-      <form onSubmit={onSubmitHandler}>
-        <div className={styles["new-user__controls"]}>
-          <div
-            className={`${styles["new-user__control"]} ${
-              !NameValid && styles.invalid
-            }`}
-          >
-            <label> Name </label>
-            <input
-              onChange={nameChangeHandler}
-              type="text"
-              value={enteredName}
-            />
-          </div>
-          <div
-            className={`${styles["new-user__control"]} ${
-              !AgeValid && styles.invalid
-            } `}
-          >
-            <label> Age </label>
-            <input
-              onChange={ageChangeHandler}
-              value={enteredAge}
-              type="number"
-              min="1"
-              step="1"
-            />
-          </div>
+    <div>
+      {error && (
+        <ErrorModal
+          title={error.title}
+          message={error.message}
+          onConfirm={errorHandler}
+        />
+      )}
+      <Card className={styles.input}>
+        <div className="userForm">
+          <h2> Add a New User </h2>
+          <form onSubmit={onSubmitHandler}>
+            <div className={styles["new-user__controls"]}>
+              <div
+                className={`${styles["new-user__control"]} ${
+                  !NameValid && styles.invalid
+                }`}
+              >
+                <label htmlFor="name"> Name </label>
+                <input
+                  id="name"
+                  onChange={nameChangeHandler}
+                  type="text"
+                  value={enteredName}
+                />
+              </div>
+              <div
+                className={`${styles["new-user__control"]} ${
+                  !AgeValid && styles.invalid
+                } `}
+              >
+                <label htmlFor="age"> Age </label>
+                <input
+                  id="age"
+                  onChange={ageChangeHandler}
+                  value={enteredAge}
+                  type="number"
+                  min="1"
+                  step="1"
+                />
+              </div>
+            </div>
+            <div className={styles["new-user__action"]}>
+              <Button type="submit"> Add User </Button>
+            </div>
+          </form>
         </div>
-        <div className={styles["new-user__action"]}>
-          <button type="submit"> Add User </button>
-        </div>
-      </form>
+      </Card>
     </div>
   );
 }

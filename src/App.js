@@ -23,10 +23,17 @@ function App() {
     })
   }
 
+  function deleteUserHandler(userID) {
+    setUserList(prevUsers => {
+      const updatedUsers = prevUsers.filter(user => user.id !== userID)
+      return updatedUsers;
+    })
+  }
+
   return (
     <div>      
       <UserForm onAddNewUser={addNewUserHandler}/>
-      <Users users={userList}/>
+      <Users users={userList} onDeleteUser={deleteUserHandler}/>
     </div>
   );
 }
